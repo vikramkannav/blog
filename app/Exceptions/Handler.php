@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+#use App\Mail\ErrorMail;
 use Exception;
+use App\User;
+use App\Notifications\SlackNotification;
+#use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -46,8 +50,21 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
+
+
+
+    //============function add for slack notification===============
+    public function sendErrorsToSlack($exception)
+    {
+        $user= (new User)->notify(new SlackNotification($exception));
+
+    }
+
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+      // $this->sendErrorsToMail($request,$exception);
+        $this->sendErrorsToSlack($exception);
+       return parent::render($request, $exception);
     }
+
 }

@@ -26,4 +26,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //=====slack Notification===============
+
+    public function routeNotificationForSlack()
+    {
+        return env('SLACK_WEBHOOK_URL');
+    }
 }
