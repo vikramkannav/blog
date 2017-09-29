@@ -23,6 +23,15 @@ task('copy_local_env',function(){
     }
 });
 
+desc('Clear the config file from bootstrap/cache folder');
+task('config-clear',function(){
+    cd('{{release_path}}');
+    run('php artisan config:clear');
+    run('rm .env');
+    run('cp .env.'.get('stage').' .env');
+});
+
+
 
 // Writable dirs by web server
 add('writable_dirs', []);
