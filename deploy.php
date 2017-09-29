@@ -16,6 +16,14 @@ set('git_tty', true);
 add('shared_files', []);
 add('shared_dirs', []);
 
+desc('Symlink the env to the stage env file');
+task('symlink_env',function(){
+    if(get('stage') != 'local') {
+        cd('{{release_path}}');
+        run('ln -nfs --relative ./.env.' . get('stage') . ' ./.env');
+    }
+});
+
 desc('Copy local file content to env.local id stage is local');
 task('copy_local_env',function(){
     if(get('stage') == 'local'){
