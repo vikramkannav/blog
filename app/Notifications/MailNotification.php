@@ -40,10 +40,9 @@ class MailNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new MailMessage)->view(
+        //         'emails.name', ['invoice' => $this->invoice]
+        );
     }
 
     /**
@@ -59,3 +58,4 @@ class MailNotification extends Notification
         ];
     }
 }
+

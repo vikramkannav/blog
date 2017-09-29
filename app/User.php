@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends BaseModel
 {
     use Notifiable;
 
@@ -14,8 +14,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email','password','age','mobile'
     ];
 
     /**
@@ -33,4 +35,30 @@ class User extends Authenticatable
     {
         return env('SLACK_WEBHOOK_URL');
     }
+
+
+    public function getValidationRules(){
+        $validations = [
+            'name' => 'required | min:2 | max:60',
+            'email' => 'required | email | max:191| unique:users,email',
+            'age' => 'required | min:2 | max:60',
+            'password' =>'required |min:8 | max:60',
+            'phone' =>'required | min:8 | max:13'
+        ];
+
+        return $validations;
+    }
+
+    public function saving_event()
+    {
+        print_r("aa".$this->get_skip_validation()."bb");
+        if (!$this->get_skip_validation())
+        {
+            return $this->validateObject();
+        }
+
+        return true;
+    }
+
+
 }
