@@ -42,7 +42,7 @@ task('config-clear',function(){
 
 after('deploy:shared', 'symlink_env');
 //before('symlink_env', 'copy_local_env');
-after('symlink_env', 'setup_dependencies')
+after('symlink_env', 'setup_dependencies');
 
 
 // Writable dirs by web server
