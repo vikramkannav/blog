@@ -16,6 +16,14 @@ set('git_tty', true);
 add('shared_files', []);
 add('shared_dirs', []);
 
+desc('Copy local file content to env.local id stage is local');
+task('copy_local_env',function(){
+    if(get('stage') == 'local'){
+        upload('.env', '{{release_path}}/.env');
+    }
+});
+
+
 // Writable dirs by web server
 add('writable_dirs', []);
 
