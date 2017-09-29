@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Deployer;
 
 require 'recipe/laravel.php';
@@ -9,17 +7,19 @@ require 'recipe/laravel.php';
 set('application', 'my_project');
 
 // Project repository
-set('repository', 'https://github.com/vikramkannav/blog.git');
+set('repository', 'git@github.com:vikramkannav/blog.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
-set('git_tty', true); 
+set('git_tty', true);
 
-// Shared files/dirs between deploys 
-add('shared_files', []); 
+// Shared files/dirs between deploys
+add('shared_files', []);
 add('shared_dirs', []);
 
-// Writable dirs by web server 
+// Writable dirs by web server
 add('writable_dirs', []);
+
+
 // Hosts
 
 inventory('hosts.yml');
